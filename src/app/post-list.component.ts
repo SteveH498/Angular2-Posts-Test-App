@@ -16,18 +16,18 @@ import { PostService } from './post.service'
 			  {{ post.post }}
 			  </li>
 			</ul>
-			<div *ngIf="selectedPost">
-				<label>Post:</label>
-				<input [(ngModel)]="selectedPost.post"/>
-				<button type="button" (click)="savePost(selectedPost)">Save</button>
-			</div>`
+
+			<label>Post:</label>
+			<input #newPost/>
+			<button (click)="savePost(newPost.value); newPost.value=''">Save</button>
+			`
+
 })
 export class PostListComponent implements OnInit { 
 
 	title = 'Posts'; 
 	posts: Post[];
 	
-	selectedPost: Post;
 	
 	constructor (private postService: PostService) {}
 	
@@ -42,12 +42,8 @@ export class PostListComponent implements OnInit {
 	}
 	
 	
-	onPostClick(post: Post){
-		this.selectedPost = post;
-	}
-	
-	savePost(selectedPost: Post){
-		this.postService.savePost(selectedPost).subscribe();
+	savePost(newPost: Post){
+		this.postService.savePost(newPost).subscribe(post  => this.posts.push(post));
 	}
 	
 
