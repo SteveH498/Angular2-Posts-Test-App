@@ -1,1 +1,4 @@
 node_modules/
+system-config.js*
+app/**/*.js
+app/**/*.map
